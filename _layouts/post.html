@@ -1,0 +1,97 @@
+---
+layout: default
+---
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<!-- Read event -->
+<script>
+try {
+  document.addEventListener("DOMContentLoaded", function() {
+    var accumScrollMove = 0;
+    // Set it 1 msecs to avoid div by zero error
+    var accumScrollTime = 1;
+    var latestScrollTop = 0;
+    var latestScrollAt = new Date();
+    
+    function checkScroll() {
+      // 1. Check scrollbar movement speed
+      var scrollTop = document.body.scrollTop;
+      var scrollAt = new Date();
+      var scrollTopDelta = Math.abs(latestScrollTop - scrollTop);
+      var scrollTimeDelta = Math.min(scrollAt - latestScrollAt, 5 * 60 * 1000); // limit max time-delta to 5 minutes
+      if(scrollTopDelta !== 0) {
+        latestScrollTop = scrollTop;
+        latestScrollAt = scrollAt;
+        accumScrollMove += scrollTopDelta;
+        accumScrollTime += scrollTimeDelta;
+      }
+    
+      // 2. Check event firing condition
+       if(accumScrollTime > 30 * 1000 && scrollTop / document.body.scrollHeight > 0.8) {
+        var pixelPerSec = Math.floor(accumScrollMove / accumScrollTime * 1000);
+        var label = pixelPerSec > 100 ? 'skimmer' : 'reader';
+        ga('send', 'event', 'read', 'pps', label, pixelPerSec);
+      } else {
+        window.setTimeout(checkScroll, 500);
+      }
+    }
+    
+   checkScroll();
+  });
+} catch(e) {}
+</script>
+
+<!-- IPython Notebook -->
+<script>
+document.addEventListener("DOMContentLoaded", function(e) {
+  var cells = document.querySelectorAll('article .cell');
+  for(var i = 0; i < cells.length; i++) {
+    var cell = cells[i];
+    cell.addEventListener('click', function() {
+      var curClasses = this.getAttribute('class');
+      if(curClasses.indexOf(' expanded') !== -1) {
+        this.setAttribute('class', curClasses.substring(0, curClasses.length - 9));
+      } else {
+        this.setAttribute('class', curClasses + ' expanded');
+      }
+    });
+  }
+});
+</script>
+
+<article {% if page.feature-img %}class="feature-image"{% endif %}>
+  <header id="main" style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
+    <h1 id="{{ page.title | cgi_escape }}" class="title">{{ page.title }}</h1>
+    <p class="meta">
+    {{ page.date | date: "%B %-d, %Y" }}
+    {% if page.author %} - {{ page.author }}{% endif %}
+    </p>
+  </header>
+  <section class="post-content">{{ page.content }}</section>
+  
+  <!-- Social media shares -->
+  {% include share_buttons.html %}
+   
+   <!-- Tag list -->
+  {% capture tag_list %}{{ page.tags | join: "|"}}{% endcapture %}
+  {% include tags_list.html tags=tag_list %}
+    
+</article>
+
+<!-- Disqus -->
+{% if site.theme_settings.disqus_shortname %}
+<div class="comments">
+  {% include disqus.html %}
+</div>
+{% endif %}
+
+<!-- Post navigation -->
+{% if site.theme_settings.post_navigation %}
+  {% include post_nav.html %}
+{% endif %}

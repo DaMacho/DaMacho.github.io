@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="DaMacho" href="https://damacho.github.io/feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/vendor/katex.min.css">
+    <script src="/assets/js/vendor/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-120963948-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    
+    <!-- Manual seo tags -->
+    <!-- <title>Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012) | DaMacho</title> -->
+    <meta name="generator" content="Jekyll v3.8.1" />
+    <meta property="og:title" content="Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Review: 신경망에서 드롭아웃에 관한 첫번째 논문이다. 이후 정리한 논문이 더 자세한 것 같다. 학습단계에서 무작위로 은닉층의 뉴런, 특징추출기 중 절반을 생략한다. 이를 통해 드롭아웃이 미적용된 망에서 보이던 동조화 현상이 현저히 줄어드는 것을 보았고, 자체적으로 앙상블 모델..." />
+    <meta property="og:description" content="Review: 신경망에서 드롭아웃에 관한 첫번째 논문이다. 이후 정리한 논문이 더 자세한 것 같다. 학습단계에서 무작위로 은닉층의 뉴런, 특징추출기 중 절반을 생략한다. 이를 통해 드롭아웃이 미적용된 망에서 보이던 동조화 현상이 현저히 줄어드는 것을 보았고, 자체적으로 앙상블 모델..." />
+    <link rel="canonical" href="https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" />
+    <meta property="og:url" content="https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" />
+    <meta property="og:site_name" content="DaMacho" />
+    <meta property="og:type" content="blog" />
+    <script type="application/ld+json"></script>
+    
+    <title>Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012) | DaMacho</title>
+    <meta name="description" content="Review: 신경망에서 드롭아웃에 관한 첫번째 논문이다. 이후 정리한 논문이 더 자세한 것 같다. 학습단계에서 무작위로 은닉층의 뉴런, 특징추출기 중 절반을 생략한다. 이를 통해 드롭아웃이 미적용된 망에서 보이던 동조화 현상이 현저히 줄어드는 것을 보았고, 자체적으로 앙상블 모델...">
+   
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/salt.svg" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">DaMacho</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul class="hide">
+        <!-- Auto Generation of NORMAL pages in the navbar -->
+        
+        
+        
+        
+        
+        
+        
+        <li class="separator"> | </li>
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="separator"> | </li>
+        <li>
+            <a class="clear" href="/gallery/">
+                Gallery
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="separator"> | </li>
+        <li>
+            <a class="clear" href="/portfolio/">
+                Portfolio
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        <!-- Auto Generation of SPECIAL pages in the navbar -->
+        
+          
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" href="/search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+            </li>
+          
+        
+          
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" href="/tags">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                </a>
+            </li>
+          
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<!-- Read event -->
+<script>
+try {
+  document.addEventListener("DOMContentLoaded", function() {
+    var accumScrollMove = 0;
+    // Set it 1 msecs to avoid div by zero error
+    var accumScrollTime = 1;
+    var latestScrollTop = 0;
+    var latestScrollAt = new Date();
+    
+    function checkScroll() {
+      // 1. Check scrollbar movement speed
+      var scrollTop = document.body.scrollTop;
+      var scrollAt = new Date();
+      var scrollTopDelta = Math.abs(latestScrollTop - scrollTop);
+      var scrollTimeDelta = Math.min(scrollAt - latestScrollAt, 5 * 60 * 1000); // limit max time-delta to 5 minutes
+      if(scrollTopDelta !== 0) {
+        latestScrollTop = scrollTop;
+        latestScrollAt = scrollAt;
+        accumScrollMove += scrollTopDelta;
+        accumScrollTime += scrollTimeDelta;
+      }
+    
+      // 2. Check event firing condition
+       if(accumScrollTime > 30 * 1000 && scrollTop / document.body.scrollHeight > 0.8) {
+        var pixelPerSec = Math.floor(accumScrollMove / accumScrollTime * 1000);
+        var label = pixelPerSec > 100 ? 'skimmer' : 'reader';
+        ga('send', 'event', 'read', 'pps', label, pixelPerSec);
+      } else {
+        window.setTimeout(checkScroll, 500);
+      }
+    }
+    
+   checkScroll();
+  });
+} catch(e) {}
+</script>
+
+<!-- IPython Notebook -->
+<script>
+document.addEventListener("DOMContentLoaded", function(e) {
+  var cells = document.querySelectorAll('article .cell');
+  for(var i = 0; i < cells.length; i++) {
+    var cell = cells[i];
+    cell.addEventListener('click', function() {
+      var curClasses = this.getAttribute('class');
+      if(curClasses.indexOf(' expanded') !== -1) {
+        this.setAttribute('class', curClasses.substring(0, curClasses.length - 9));
+      } else {
+        this.setAttribute('class', curClasses + ' expanded');
+      }
+    });
+  }
+});
+</script>
+
+<article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="Dropout%2C+%22Improving+neural+networks+by+preventing+co-adaptation+of+feature+detectors%22+%282012%29" class="title">Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)</h1>
+    <p class="meta">
+    June 5, 2018
+    
+    </p>
+  </header>
+  <section class="post-content"><p>Review: 신경망에서 드롭아웃에 관한 첫번째 논문이다. 이후 정리한 논문이 더 자세한 것 같다. 학습단계에서 무작위로 은닉층의 뉴런, 특징추출기 중 절반을 생략한다. 이를 통해 드롭아웃이 미적용된 망에서 보이던 동조화 현상이 현저히 줄어드는 것을 보았고, 자체적으로 앙상블 모델과 같은 모델 평균 효과를 보여준다. 이 두 작용을 통해 과최적화, Overfitting을 방지하는 결과를 보여준다. 
+<!--more--></p>
+<h1 id="dropout-improving-neural-networks-by-preventing-co-adaptation-of-feature-detectors">Dropout: Improving neural networks by preventing co-adaptation of feature detectors</h1>
+<ul>
+  <li>References
+    <ul>
+      <li>Hinton, Geoffrey E., et al. “Improving neural networks by preventing co-adaptation of feature detectors.” (2012). <a href="https://arxiv.org/pdf/1207.0580.pdf">[pdf]</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Abstract</strong></p>
+<ul>
+  <li>작은 데이터셋으로 feedforward 뉴럴넷을 학습시켰을 시, 테스트셋에서 성과가 저조하다. 이런 “과적화(Overfitting)”는, 각각의 트레이닝 케이스(예시: mini batch)마다 무작위로 절반의 특징추출기(feature detectors)를 생략하는 “드롭아웃(dropout)”을 통해 줄일 수 있다. 이 방법은 특징추출기들의 동조화(co-adaptation)을 막는다.</li>
+  <li>Dropout을 적용했더니, 음성 인식과 이미지 인식에서 향상된 결과를 보였다.</li>
+  <li>Co-adaptation, 동조화: 특정 뉴런의 가중치나 바이어스가 큰 값을 갖게 되면, 그 특정 뉴런의 영향이 커지면서 다른 뉴런들의 학습 속도가 느려지거나 학습이 제대로 진행되지 못하는 경우.</li>
+</ul>
+
+<p><strong>Overfitting의 원인에 관하여</strong></p>
+<ul>
+  <li>feedforward neural network(input units + hidden units + output units)는 입력층과 은닉층 그리고 출력층으로 구성된다. 은닉층은 입력층에 입력된 값은 바탕으로 가중치를 조정하고 출력층이 정확한 출력을 예측하게 특징추출기를 학습한다.</li>
+  <li>입력과 출력의 관계가 복잡하거나 라벨링된 학습데이터가 부족하다면, 모델은 트레인셋에 특화되므로 테스트셋에서 아주 저조한 성과를 보일 것이다. 이를 “Overfitting”이라고 한다.</li>
+</ul>
+
+<p><strong>Dropout의 장점과 기능 2가지</strong>  </p>
+<ul>
+  <li>드롭아웃은 학습데이터의 복잡한 co-adaptatio을 방지하여 overfitting을 방지한다.
+    <ul>
+      <li>일정한 training case(예: mini-batch)마다 은닉뉴런을 무작위로 50% 확률로 생략시킨다. 이를 통해 은닉뉴런들이 특정 혹은 다른 은닉뉴런에 동조하는 것을 막을 수 있다.</li>
+    </ul>
+  </li>
+  <li>드롭아웃을 보는 다른 관점으로, 모델 평균효과(model averaging)를 들 수 있다.
+    <ul>
+      <li>테스트셋에서 에러를 줄이는 방법으로 앙상블, 여러 다른 형태의 네트워크의 결과를 평균내는 방법이 있다. 하지만 이 방법은 너무 비용이 크다.</li>
+      <li>드롭아웃은 적절한 시간을 들여 다양한 망을 학습하게 해준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Regularization 적용에 관하여</strong>  </p>
+<ul>
+  <li>드롭아웃 뉴럴넷에는 기본적으로 SGD와 mini-batch training case를 적용했으나, L2 norm 대신 다른 패널티 방식, Regularization 방식을 적용했다. (Max norm 방식)
+    <ul>
+      <li>은닉레이어에 L2 norm이 적용된, 가중치 벡터에 상한치(upper boundary)를 적용하여 이를 넘지 못하게 했다.</li>
+      <li>이 방식을 통해 가중치가 너무 커지는 것을 방지하여, learning rate을 큰 값부터 사용하는 것이 가능하게 되고, 학습 속도를 빠르게 할 수 있게 되었다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Mean network 효과(평균 망 효과)에 대하여</strong>  </p>
+<ul>
+  <li>테스트 시에는, 모든 은닉뉴런을 사용했지만 그 가중치를 절반으로 줄였다.</li>
+  <li>… (이부분 잘 이해안됨)</li>
+</ul>
+
+<p><strong>MNIST 적용 결과</strong>  </p>
+<ul>
+  <li>MNIST
+    <ul>
+      <li>60,000 28x28 training images of individual hand written digits</li>
+      <li>10,000 test images</li>
+    </ul>
+  </li>
+  <li>기존 feedforward 신경망을 통한 테스트셋에서 160 errors</li>
+  <li>드롭아웃 50%, max norm 적용하여 130 errors</li>
+  <li>
+    <ul>
+      <li>20%의 픽셀에 드롭아웃을 적용하여 110 errors</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>MNIST Pre-trianing과의 조합</strong>  </p>
+<ul>
+  <li>50% 드롭아웃과 작은 학습율, 가중치제한 없이 pre-trained 모델에 적용하여, 118 errors에서 92 errors로 결과 향상.</li>
+  <li>이외 이어서 미적용모델과 적용모델을 계속 학습시켰으나, 드롭아웃 적용 모델이 더 성능이 좋았음.</li>
+</ul>
+
+<p><strong>TIMIT 적용 결과</strong>  </p>
+<ul>
+  <li>TIMIT
+    <ul>
+      <li>짧은 단어로 이루어진 음성 데이터셋</li>
+    </ul>
+  </li>
+  <li>당시에 음성인식에 hidden Markov models을 사용함. 자세한 내용은 생략…</li>
+  <li>총 4개의 FC 은닉층에 4000개의 뉴런, 185개의 softmax 출력뉴런으로 39개의 라벨을 분류함</li>
+  <li>암튼 드롭아웃을 적용하여 22.7%에서 19.7%로 성능 향상</li>
+</ul>
+
+<p><strong>CIFAR-10 적용 결과</strong>  </p>
+<ul>
+  <li>CIFAR-10
+    <ul>
+      <li>50,000 32x32 training images of color object</li>
+      <li>10,000 test images with 10 classes</li>
+    </ul>
+  </li>
+  <li>구형 망을 통한 테스트에서 18.5%</li>
+  <li>3 Convolution layers + 3 Max-pooling layers + 1 locally connected layers, 16.6%</li>
+  <li>
+    <ul>
+      <li>dropout in last hidden layer 15.6%</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>ImageNet</strong>  </p>
+<ul>
+  <li>ImageNet(2010)
+    <ul>
+      <li>1000 images on each 1000 classes</li>
+    </ul>
+  </li>
+  <li>5 Conv. layer with max-pooling layer + 2 globally connected layers + 1000 way softmax layer. + 가중치제한 + 50% 드롭아웃. 47.2% -&gt; 42.4%</li>
+</ul>
+
+<p><strong>Reuters</strong>  </p>
+<ul>
+  <li>Reuters dataset(로이터 통신 데이터셋)
+    <ul>
+      <li>201,369 docs with 50 상호배타적인 classes</li>
+    </ul>
+  </li>
+  <li>50% 드롭아웃 적용. 31.05% -&gt; 29.62%</li>
+</ul>
+
+<p><strong>실험에 의한 dropout 평가</strong>  </p>
+<ul>
+  <li>확실히 dropout 적용시 성능이 좋아짐.
+    <ul>
+      <li>FC의 모든 은닉층에 적용함이 하나의 은닉층에 적용함 보다 성능향상에 좋음.</li>
+      <li>극단적인 드롭아웃 적용은 성능을 저하시킴. 그래서 0.5 씩 적용함.</li>
+      <li>입력에도 드롭아웃 적용 시, 성능향상에 도움을 주기도 함.</li>
+      <li>validation set의 결과를 보고 각 은닉층과 입력층에 적용하는 드롭아웃율을 조절하는 방법도 가능함.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>기타 논의</strong>  </p>
+<ul>
+  <li>학습 데이터로 얻은 사후 확률로 각 모델의 가중치를 정하는 베이지안 모델 평균방식보다, 드롭아웃은 적용하기 더 단순하다.
+    <ul>
+      <li>복잡한 모델에서, 베이지안 방식은 사후 확률분포에서 모델을 샘플링하는데에 마코프 체인 몬테 카를로 방법을 사용한다.</li>
+      <li>반면, 드롭아웃은 각 모델이 0.5의 확률로 같은 중요도로 결합되고, 학습 시 이런한 점이 전제된다.</li>
+      <li>테스트에서, 드롭아웃의 결정은 각 단위에 독립적이므로 mean net을 통한 단일 통과를 사용하여 지수함수적으로 다양한 dropout망의 결합 옵션을 최적화하는 것이 쉽다. (한번에 통과하면서 좋은 성능을 보여줄 수 있따?)</li>
+    </ul>
+  </li>
+  <li>베이지안 모델 평균의 대안으로 “bagging”이 있다.
+    <ul>
+      <li>드롭아웃은 극단적인 형태의 bagging이라고 볼수 있다. 한번의 학습에 각 모델의 파라미터는 다른 모델의 파라미터와 공유하며 강하게 정규화된다.</li>
+    </ul>
+  </li>
+  <li>양성 생식 진화 이론과 견주어 비교해 볼 수 있다.</li>
+</ul>
+</section>
+  
+  <!-- Social media shares -->
+  <footer>
+<div class="share-buttons">
+<ul class="share-buttons">
+	
+	<li>
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io//2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html&quote=Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)%20%7C%20DaMacho" target="_blank" title="Share on Facebook"> -->
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io//2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"> -->
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+	</li>
+	
+
+	
+	<li>
+		<!-- <a href="https://twitter.com/intent/tweet?source=https://damacho.github.io//2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html&text=Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)%20%7C%20DaMacho:%20https://damacho.github.io//2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" target="_blank" title="Tweet"> -->
+		<a href="https://twitter.com/intent/tweet?source=https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html&text=Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)%20%7C%20DaMacho:%20https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html" target="_blank" title="Tweet">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<!-- <a href="http://www.reddit.com/submit?url=https://damacho.github.io//2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html&title=Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)%20%7C%20DaMacho" target="_blank" title="Share on Reddit"> -->
+		<a href="http://www.reddit.com/submit?url=https://damacho.github.io/2018/06/05/ImprovingNeuralNetowrksbyPreventingCoadaptationofFeatureDetectors.html&title=Dropout, "Improving neural networks by preventing co-adaptation of feature detectors" (2012)%20%7C%20DaMacho" target="_blank" title="Share on Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+</ul>
+</div>
+</footer>
+
+   
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#Paper_Review">
+      <p><i class="fa fa-tag fa-fw"></i> Paper_Review</p>
+    </a>
+    
+  </div>
+</footer>
+
+    
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2018/05/29/VeryDeepConvolutionalNetworksforLargeScaleImageRecognition_VGGNet.html">
+        VGGNet, "Very Deep Convolutional Networks for Large-Scale Image Recognition" (2014)
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/2018/06/11/MaxSquareFinder.html">
+        Level 2. 가장 큰 정사각형 찾기 (Python)
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+
+
+<li>
+	<a href="mailto:po4865@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/DaMacho" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

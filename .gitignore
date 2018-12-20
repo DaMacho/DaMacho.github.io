@@ -1,0 +1,37 @@
+# Idea files
+.idea/*
+
+# Mac files
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+*.manifest
+*.spec
+
+# Jekyll dev or build files
+_development_tool/*
+.sass-cache/*
+*.css.map
+*.scssc
+
+# Theme Gem files
+Gemfile.lock
+*.gem
+.gems
+jekyll-theme-type-on-strap.gemspec
+
+# ipynb related files
+_ipynbs/.ipynb_checkpoints
+_ipynbs_profile/security
+_ipynbs_profile/log
+_ipynbs_profile/db
+_ipynbs_profile/pid
+_ipynbs_profile/history.sqlite
+
+# rproject
+_script/*/*.rproj
+.Rproj.user
+.Rhistory
+
+# python
+.python-version
