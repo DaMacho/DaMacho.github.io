@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://damacho.github.io/2018/05/22/next_step.html">
+    <link rel="canonical" href="https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref">
 
     <!-- RSS -->
     <link rel="alternate" type="application/atom+xml" title="DaMacho" href="https://damacho.github.io/feed.xml"/>
@@ -61,20 +61,20 @@
     <!-- seo tags -->
     
     <!-- Manual seo tags -->
-    <!-- <title>블로그 건설 중, 다음으로 할 것 | DaMacho</title> -->
+    <!-- <title>주피터 노트북 테스팅 | DaMacho</title> -->
     <meta name="generator" content="Jekyll v3.8.1" />
-    <meta property="og:title" content="블로그 건설 중, 다음으로 할 것" />
+    <meta property="og:title" content="주피터 노트북 테스팅" />
     <meta property="og:locale" content="en_US" />
-    <meta name="description" content="드디어 주피터 노트북이 읽히게 만들었다. 다음으로 뭘 할 것인가?" />
-    <meta property="og:description" content="드디어 주피터 노트북이 읽히게 만들었다. 다음으로 뭘 할 것인가?" />
-    <link rel="canonical" href="https://damacho.github.io/2018/05/22/next_step.html" />
-    <meta property="og:url" content="https://damacho.github.io/2018/05/22/next_step.html" />
+    <meta name="description" content="" />
+    <meta property="og:description" content="" />
+    <link rel="canonical" href="https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref" />
+    <meta property="og:url" content="https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref" />
     <meta property="og:site_name" content="DaMacho" />
     <meta property="og:type" content="blog" />
     <script type="application/ld+json"></script>
     
-    <title>블로그 건설 중, 다음으로 할 것 | DaMacho</title>
-    <meta name="description" content="드디어 주피터 노트북이 읽히게 만들었다. 다음으로 뭘 할 것인가?">
+    <title>주피터 노트북 테스팅 | DaMacho</title>
+    <meta name="description" content="">
    
 </head>
 
@@ -251,24 +251,14 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 <article >
   <header id="main" style="background-image: url('/')">
-    <h1 id="%EB%B8%94%EB%A1%9C%EA%B7%B8+%EA%B1%B4%EC%84%A4+%EC%A4%91%2C+%EB%8B%A4%EC%9D%8C%EC%9C%BC%EB%A1%9C+%ED%95%A0+%EA%B2%83" class="title">블로그 건설 중, 다음으로 할 것</h1>
+    <h1 id="%EC%A3%BC%ED%94%BC%ED%84%B0+%EB%85%B8%ED%8A%B8%EB%B6%81+%ED%85%8C%EC%8A%A4%ED%8C%85" class="title">주피터 노트북 테스팅</h1>
     <p class="meta">
-    May 22, 2018
+    February 10, 2018
     
     </p>
   </header>
-  <section class="post-content"><p>드디어 주피터 노트북이 읽히게 만들었다. 다음으로 뭘 할 것인가?   <br />
-<!--more--></p>
+  <section class="post-content">2018-02-10-preparing_data_structure_study.ipynb
 
-<ul>
-  <li>배포하기 (O)</li>
-  <li>동작 확인하기 (O)</li>
-  <li>사이트 제목, 블로그 제목 짓기. (O)</li>
-  <li>나에 대해 쓰기.</li>
-  <li>갤러리에 사진 넣고 글 정리하기. (O)</li>
-  <li>포트폴리오 정리하기. (O… 뭐 일단은)</li>
-  <li>포스팅된 글 정리하기.  (O)</li>
-</ul>
 </section>
   
   <!-- Social media shares -->
@@ -277,9 +267,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
 <ul class="share-buttons">
 	
 	<li>
-		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2018/05/22/next_step.html&quote=블로그 건설 중, 다음으로 할 것%20%7C%20DaMacho" target="_blank" title="Share on Facebook"> -->
-		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2018/05/22/next_step.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"> -->
-		<a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io/2018/05/22/next_step.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2018/02/10/preparing_data_structure_study.ipynbref&quote=주피터 노트북 테스팅%20%7C%20DaMacho" target="_blank" title="Share on Facebook"> -->
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2018/02/10/preparing_data_structure_study.ipynbref" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"> -->
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
 			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
 			<span class="sr-only">Share on Facebook</span>
 		</a>
@@ -288,8 +278,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	
 	<li>
-		<!-- <a href="https://twitter.com/intent/tweet?source=http://localhost:4000/2018/05/22/next_step.html&text=블로그 건설 중, 다음으로 할 것%20%7C%20DaMacho:%20http://localhost:4000/2018/05/22/next_step.html" target="_blank" title="Tweet"> -->
-		<a href="https://twitter.com/intent/tweet?source=https://damacho.github.io/2018/05/22/next_step.html&text=블로그 건설 중, 다음으로 할 것%20%7C%20DaMacho:%20https://damacho.github.io/2018/05/22/next_step.html" target="_blank" title="Tweet">
+		<!-- <a href="https://twitter.com/intent/tweet?source=http://localhost:4000/2018/02/10/preparing_data_structure_study.ipynbref&text=주피터 노트북 테스팅%20%7C%20DaMacho:%20http://localhost:4000/2018/02/10/preparing_data_structure_study.ipynbref" target="_blank" title="Tweet"> -->
+		<a href="https://twitter.com/intent/tweet?source=https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref&text=주피터 노트북 테스팅%20%7C%20DaMacho:%20https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref" target="_blank" title="Tweet">
 			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
 			<span class="sr-only">Tweet</span>
 		</a>
@@ -306,8 +296,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
 	
 	<li>
-		<!-- <a href="http://www.reddit.com/submit?url=http://localhost:4000/2018/05/22/next_step.html&title=블로그 건설 중, 다음으로 할 것%20%7C%20DaMacho" target="_blank" title="Share on Reddit"> -->
-		<a href="http://www.reddit.com/submit?url=https://damacho.github.io/2018/05/22/next_step.html&title=블로그 건설 중, 다음으로 할 것%20%7C%20DaMacho" target="_blank" title="Share on Reddit">
+		<!-- <a href="http://www.reddit.com/submit?url=http://localhost:4000/2018/02/10/preparing_data_structure_study.ipynbref&title=주피터 노트북 테스팅%20%7C%20DaMacho" target="_blank" title="Share on Reddit"> -->
+		<a href="http://www.reddit.com/submit?url=https://damacho.github.io/2018/02/10/preparing_data_structure_study.ipynbref&title=주피터 노트북 테스팅%20%7C%20DaMacho" target="_blank" title="Share on Reddit">
 			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
 			<span class="sr-only">Share on Reddit</span>
 		</a>
@@ -353,18 +343,11 @@ document.addEventListener("DOMContentLoaded", function(e) {
 
   <div id="post-nav">
   
-  <div id="previous-post" class="post-nav-post">
-      <p>Previous post</p>
-      <a href="/2018/02/10/preparing_data_structure_study.ipynbref">
-        주피터 노트북 테스팅
-      </a>
-  </div>
-  
   
   <div id="next-post" class="post-nav-post">
       <p>Next post</p>
-      <a href="/2018/05/29/VeryDeepConvolutionalNetworksforLargeScaleImageRecognition_VGGNet.html">
-        VGGNet, "Very Deep Convolutional Networks for Large-Scale Image Recognition" (2014)
+      <a href="/2018/05/22/next_step.html">
+        블로그 건설 중, 다음으로 할 것
       </a>
   </div>
   
