@@ -104,18 +104,6 @@
    
      {
        
-          "title"    : "Ninja",
-          "category" : "",
-          "tags"     : " ",
-          "url"      : "/portfolio/ninja",
-          "date"     : "April 8, 2014",
-          "excerpt"  : null,
-          "content"  : null
-       
-     } ,
-   
-     {
-       
           "title"    : "Creative",
           "category" : "",
           "tags"     : " ",
@@ -205,6 +193,18 @@
           "tags"     : " ",
           "url"      : "/portfolio/gitlecture",
           "date"     : "October 20, 2017",
+          "excerpt"  : null,
+          "content"  : null
+       
+     } ,
+   
+     {
+       
+          "title"    : "Movie App",
+          "category" : "",
+          "tags"     : " ",
+          "url"      : "/portfolio/movie-app",
+          "date"     : "December 28, 2018",
           "excerpt"  : null,
           "content"  : null
        
