@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pythonic & Concepts
+title: Pythonic & Concepts (1)
 tags: [Python, Computer Science]
 excerpt_separator: <!--more-->
 ---
