@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 
 # 01장 철학과 개념
 
-## Chapter 01 - Pythonic & Concept (1)
+## Chapter 01 - Pythonic & Concept (1)     
 <!--more-->
 **파이썬답게 코딩하기 (프로그래밍 언어의 개념과 흐름에 대한 고찰), 심경섭 저**
 > 스터디 발표를 위한 정리 자료.   
