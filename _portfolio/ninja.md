@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Circus
-img: "assets/img/portfolio/circus.png"
-date: September 2014
+title: Ninja
+img: "assets/img/portfolio/ninja.png"
+date: 2020-12-28
 ---
 
 ![image]({{ site.baseurl }}/{{ page.img }})

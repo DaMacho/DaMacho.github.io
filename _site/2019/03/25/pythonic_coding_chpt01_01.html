@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="DaMacho" href="https://damacho.github.io/feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/vendor/katex.min.css">
+    <script src="/assets/js/vendor/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-120963948-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    
+    <!-- Manual seo tags -->
+    <!-- <title>Pythonic & Concepts (1) | DaMacho</title> -->
+    <meta name="generator" content="Jekyll v3.8.1" />
+    <meta property="og:title" content="Pythonic & Concepts (1)" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="Study Summary01장 철학과 개념Chapter 01 - Pythonic &amp; Concept (1)" />
+    <meta property="og:description" content="Study Summary01장 철학과 개념Chapter 01 - Pythonic &amp; Concept (1)" />
+    <link rel="canonical" href="https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html" />
+    <meta property="og:url" content="https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html" />
+    <meta property="og:site_name" content="DaMacho" />
+    <meta property="og:type" content="blog" />
+    <script type="application/ld+json"></script>
+    
+    <title>Pythonic & Concepts (1) | DaMacho</title>
+    <meta name="description" content="Study Summary01장 철학과 개념Chapter 01 - Pythonic &amp; Concept (1)">
+   
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/salt.svg" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">DaMacho</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul class="hide">
+        <!-- Auto Generation of NORMAL pages in the navbar -->
+        
+        
+        
+        
+        
+        
+        
+        <li class="separator"> | </li>
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="separator"> | </li>
+        <li>
+            <a class="clear" href="/portfolio/">
+                Portfolio
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        <!-- Auto Generation of SPECIAL pages in the navbar -->
+        
+          
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" href="/search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+            </li>
+          
+        
+          
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" href="/tags">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                </a>
+            </li>
+          
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<!-- Read event -->
+<script>
+try {
+  document.addEventListener("DOMContentLoaded", function() {
+    var accumScrollMove = 0;
+    // Set it 1 msecs to avoid div by zero error
+    var accumScrollTime = 1;
+    var latestScrollTop = 0;
+    var latestScrollAt = new Date();
+    
+    function checkScroll() {
+      // 1. Check scrollbar movement speed
+      var scrollTop = document.body.scrollTop;
+      var scrollAt = new Date();
+      var scrollTopDelta = Math.abs(latestScrollTop - scrollTop);
+      var scrollTimeDelta = Math.min(scrollAt - latestScrollAt, 5 * 60 * 1000); // limit max time-delta to 5 minutes
+      if(scrollTopDelta !== 0) {
+        latestScrollTop = scrollTop;
+        latestScrollAt = scrollAt;
+        accumScrollMove += scrollTopDelta;
+        accumScrollTime += scrollTimeDelta;
+      }
+    
+      // 2. Check event firing condition
+       if(accumScrollTime > 30 * 1000 && scrollTop / document.body.scrollHeight > 0.8) {
+        var pixelPerSec = Math.floor(accumScrollMove / accumScrollTime * 1000);
+        var label = pixelPerSec > 100 ? 'skimmer' : 'reader';
+        ga('send', 'event', 'read', 'pps', label, pixelPerSec);
+      } else {
+        window.setTimeout(checkScroll, 500);
+      }
+    }
+    
+   checkScroll();
+  });
+} catch(e) {}
+</script>
+
+<!-- IPython Notebook -->
+<script>
+document.addEventListener("DOMContentLoaded", function(e) {
+  var cells = document.querySelectorAll('article .cell');
+  for(var i = 0; i < cells.length; i++) {
+    var cell = cells[i];
+    cell.addEventListener('click', function() {
+      var curClasses = this.getAttribute('class');
+      if(curClasses.indexOf(' expanded') !== -1) {
+        this.setAttribute('class', curClasses.substring(0, curClasses.length - 9));
+      } else {
+        this.setAttribute('class', curClasses + ' expanded');
+      }
+    });
+  }
+});
+</script>
+
+<article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="Pythonic+%26+Concepts+%281%29" class="title">Pythonic & Concepts (1)</h1>
+    <p class="meta">
+    March 25, 2019
+    
+    </p>
+  </header>
+  <section class="post-content"><h1 id="study-summary">Study Summary</h1>
+
+<h1 id="01장-철학과-개념">01장 철학과 개념</h1>
+
+<h2 id="chapter-01---pythonic--concept-1">Chapter 01 - Pythonic &amp; Concept (1)</h2>
+<!--more-->
+<p><strong>파이썬답게 코딩하기 (프로그래밍 언어의 개념과 흐름에 대한 고찰), 심경섭 저</strong></p>
+<blockquote>
+  <p>스터디 발표를 위한 정리 자료. <br />
+봐도 모르겠으면, 나중에 꼭 책으로 다시 읽을 것!</p>
+</blockquote>
+
+<h2 id="pythonic">Pythonic</h2>
+
+<p><strong>Pythonic이란?</strong> - 파이썬을 파이썬답게 사용하기 위한 세부지침(?) (ex. PEP 8)</p>
+
+<p>Pythonic의 지향점은,  <br />
+프로그래밍 언어를, 글을 읽거나 쓰는 것처럼 자연스럽게 만드는 것, <br />
+영어로 된 글을 쓴다는 느낌으로 코드를 작성하는 것이 아닐까? <br />
+라고 저자 말하심.</p>
+
+<h2 id="변수-variable">변수 (variable)</h2>
+
+<p>변수: 메모리에 어떤 값을 가리키고 있는 이름. =&gt; 메모리에 있는 어떤 값에 이름을 붙여 내가 쉽게 사용하게 하는 것.</p>
+
+<p>변수의 lifetime: 선언 - 할당 - 소멸.</p>
+
+<p>파이썬에서 변수의 선언과 할당은 <strong>=</strong> 연산자를 통해 단번에 일어난다.</p>
+
+<h3 id="scope">Scope</h3>
+
+<p><strong>Scope란</strong> - 변수의 유효 범위, (변수가 거주가능한 구역?). <br />
+파이썬에서는 그 범위가 <strong>네임스페이스(namespace)</strong>를 기반으로 계산된다.</p>
+
+<p>파이썬의 네임스페이스는 <strong>local, enclosed, global, built-in</strong> 으로 나눌 수 있다.</p>
+<ul>
+  <li><strong>local</strong> 변수는 지역적인 네임스페이스로 클래스나 함수의 내부로 한정된다.</li>
+  <li><strong>enclosed</strong> 변수는 함수 안에 함수가 있는 구조, 즉 외부 함수가 있고 내부 함수가 있는 구조에서  <br />
+내부 함수가 외부 함수의 변수에 접근할 수 있는 것을 의미한다. (‘Nested Function’ 참고)</li>
+  <li><strong>global</strong> 변수는 전역적으로 사용이 가능한 네임스페이스로 파일 단위의 모듈 안에서 유효하다.  <br />
+특정 모듈을 import하는 경우 import한 모듈의 global 변수도 사용이 가능하다.</li>
+  <li><strong>built-in</strong> 변수는 파이썬에 내장되어 있는 네임스페이스로 파이썬으로 작성된 코드 어디에서나 사용할 수 있다.</li>
+</ul>
+
+<p>변수를 확인할 때도 위 순서대로 LEGB 확인하는 것이 바람직하다. <br />
+예시 1-1)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msg</span> <span class="o">=</span> <span class="s">"Hello"</span>
+
+<span class="k">def</span> <span class="nf">read_work</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"What"</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">read_exception</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s">"What"</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== firtst read ==="</span><span class="p">)</span>
+    <span class="n">read_work</span><span class="p">()</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== second read ==="</span><span class="p">)</span>
+    <span class="n">read_exception</span><span class="p">()</span>
+    
+<span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== firtst read ===
+Hello
+What
+=== second read ===
+
+
+
+---------------------------------------------------------------------------
+
+UnboundLocalError                         Traceback (most recent call last)
+
+&lt;ipython-input-1-9e0f1d219803&gt; in &lt;module&gt;()
+     17     read_exception()
+     18 
+---&gt; 19 main()
+
+
+&lt;ipython-input-1-9e0f1d219803&gt; in main()
+     15 
+     16     print("=== second read ===")
+---&gt; 17     read_exception()
+     18 
+     19 main()
+
+
+&lt;ipython-input-1-9e0f1d219803&gt; in read_exception()
+      6 
+      7 def read_exception():
+----&gt; 8     print(msg)
+      9     msg = "What"
+     10     print(msg)
+
+
+UnboundLocalError: local variable 'msg' referenced before assignment
+</code></pre></div></div>
+
+<h4 id="왜-error">왜 Error?</h4>
+<ul>
+  <li>9번째 줄에서 사용된 msg 변수 때문. <br />
+9번째 줄에서 전역변수 msg의 값을 변경한 것이 아닌, 지역변수 msg를 선언. <br />
+8번째 줄에서 지역변수 msg의 print()수행이 변수의 선언보다 먼저 일어났다고 판단하여 오류 발생. <br />
+파이썬이 변수 msg를 전역변수가 아닌 지역변수로 판단한 것.</li>
+</ul>
+
+<h3 id="global">Global</h3>
+
+<p><strong>global</strong> 키워드는 지역(?)에서 전역 변수를 사용할 수 있게 해준다. (지역구에서 전국구 형님을 부를 수 있다!)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">msg</span> <span class="o">=</span> <span class="s">"Hello"</span>
+
+<span class="k">def</span> <span class="nf">read_work</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"What"</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">read_exception</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">msg</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s">"What"</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== firtst read ==="</span><span class="p">)</span>
+    <span class="n">read_work</span><span class="p">()</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== second read ==="</span><span class="p">)</span>
+    <span class="n">read_exception</span><span class="p">()</span>
+    
+<span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== firtst read ===
+Hello
+What
+=== second read ===
+Hello
+What
+</code></pre></div></div>
+
+<h3 id="nonlocal">Nonlocal</h3>
+
+<p><strong>nonlocal</strong> 키워드는 ‘Nested function’(중첩함수, 함수가 중첩되어 있는 것)에서 상위 함수의 변수를 사용할 수 있게 해준다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">greeting_msg</span> <span class="o">=</span> <span class="s">"Hello "</span>
+    
+    <span class="k">def</span> <span class="nf">add_name</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s">'{greeting_msg}{name}'</span>
+    
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">add_name</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    
+
+<span class="n">greeting</span><span class="p">(</span><span class="s">"Python"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello Python
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">greeting_msg</span> <span class="o">=</span> <span class="s">"Hello"</span>
+    
+    <span class="k">def</span> <span class="nf">add_name</span><span class="p">():</span>
+        <span class="n">greeting_msg</span> <span class="o">+=</span> <span class="s">" "</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s">'{greeting_msg}{name}'</span>
+    
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">add_name</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    
+
+<span class="n">greeting</span><span class="p">(</span><span class="s">"Python"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+UnboundLocalError                         Traceback (most recent call last)
+
+&lt;ipython-input-9-04619847a977&gt; in &lt;module&gt;()
+     10 
+     11 
+---&gt; 12 greeting("Python")
+
+
+&lt;ipython-input-9-04619847a977&gt; in greeting(name)
+      6         return f'{greeting_msg}{name}'
+      7 
+----&gt; 8     msg = add_name()
+      9     print(msg)
+     10 
+
+
+&lt;ipython-input-9-04619847a977&gt; in add_name()
+      3 
+      4     def add_name():
+----&gt; 5         greeting_msg += " "
+      6         return f'{greeting_msg}{name}'
+      7 
+
+
+UnboundLocalError: local variable 'greeting_msg' referenced before assignment
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">greeting_msg</span> <span class="o">=</span> <span class="s">"Hello"</span>
+    
+    <span class="k">def</span> <span class="nf">add_name</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">greeting_msg</span>
+        <span class="n">greeting_msg</span> <span class="o">+=</span> <span class="s">" "</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s">'{greeting_msg}{name}'</span>
+    
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">add_name</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    
+
+<span class="n">greeting</span><span class="p">(</span><span class="s">"Python"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello Python
+</code></pre></div></div>
+
+<h3 id="variable-shadowing">Variable Shadowing</h3>
+
+<p>- 전역 변수나 상위 변수를 지역 변수나 멤버 변수로 가려(숨겨)버리는 것.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">var_shadowing</span> <span class="o">=</span> <span class="s">"global"</span>
+
+<span class="k">def</span> <span class="nf">outer_function</span><span class="p">():</span>
+    <span class="n">var_shadowing</span> <span class="o">=</span> <span class="s">"outer"</span>
+    
+    <span class="k">def</span> <span class="nf">inner_function</span><span class="p">():</span>
+        <span class="n">var_shadowing</span> <span class="o">=</span> <span class="s">"inner"</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'Scope of inner_function: {var_shadowing}'</span><span class="p">)</span>
+        
+    <span class="n">inner_function</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'Scope of outer_function: {var_shadowing}'</span><span class="p">)</span>
+    
+    
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">outer_function</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'Global scope: {var_shadowing}'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Scope of inner_function: inner
+Scope of outer_function: outer
+Global scope: global
+</code></pre></div></div>
+
+<h3 id="free-variable">Free variable</h3>
+
+<p><strong>Free variable</strong>이란 코드에서 사용됐지만 정의되지 않은 변수를 나타내는 용어이다. <br />
+=&gt; 함수 내부에서 사용됐지만 함수 내에는 정의되어 있지 않은 변수.</p>
+
+<p>파이썬에서는 <strong>nonlocal</strong> 키워드로 사용한 변수를 free variable 이라고 지칭할 수 있다. <br />
+지역변수도 아니고 전역변수도 아니지만, 사용할 수 있는 변수를 말한다.</p>
+
+<p><br /></p>
+
+<h2 id="first-class">First-Class</h2>
+
+<p><strong>First-Class</strong>는 파이썬에서 사용하는 여러 기술을 이해하기 위한 가장 기본적인 개념. <br />
+파이썬은 <strong>first-class 속성</strong>을 가진 <strong>first-class 함수</strong>를 지원하기 때문에 함수를 인자로 넘기거나 클로저(closure)를 사용할 수 있다. <br />
+- 클로저는 nested function의 일종으로 후에 다시 다룰 예정.</p>
+
+<h3 id="first-class-citizen">First-Class Citizen</h3>
+
+<p><strong>First-Class Citizen</strong>, 이 <strong><u>속성</u></strong>을 가진 어떤 개체는, <br />
+다른 개체의 매개변수로 전달되거나, 함수의 반환값으로 사용되거나, 변수에 값으로 할당될 수 있다. <br />
+여기서 ‘개체’란 자료형 또는 함수 또는 클래스가 될 수 있다.</p>
+
+<p>예시) <br />
+자료형 중, 스칼라(scalar) 형식의 자료형(integer, floating-point)들은 거의 다 first-class citizen.  <br />
+변수에 할당은 물론, 매개변수 또는 반환값으로 사용가능.</p>
+
+<p>array나 string은 <strong>프로그래밍 언어에 따라 다르다.</strong> <br />
+파이썬에서는 first-class citizen이지만,  <br />
+C언어에서 array가 전달될 때 그 자체가 아닌 array의 첫번째 원소의 주소값이 전달된다. <br />
+다시 말하면, array 그 자체로 매개변수나 함수의 반환값으로 사용될 수 없다.</p>
+
+<p><strong>요약) 개체, 즉 자료형이나 함수 등이 그 자체로 매개변수로 전달되거나 반환값으로 사용될 수 있으면 그 개체는 first-class citizen 속성을 가지고 있다.</strong></p>
+
+<h3 id="first-class-function">First-Class Function</h3>
+
+<p>first-class citizen 속성을 가진 함수. <br />
+즉, 변수에 함수를 할당할 수 있고, 매개변수로 함수를 전달할 수 있고, 반환값으로 함수를 사용할 수 있다.</p>
+
+<p>이 속성을 통해 여러 가지 기술이 탄생했다. <br />
+클로저(Closure)나 데코레이터(decorator)가 대표적이다. (후술 예정)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># first_class_function_variable</span>
+<span class="s">'''
+함수를 변수에 저장하고, 
+그 변수를 함수처럼 사용하여 호출하는 예제.
+'''</span>
+
+<span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Function call"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">()</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"Assign variable"</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">square</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    
+    
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Function call
+100
+
+Assign variable
+100
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># first_class_function_parameter</span>
+<span class="s">'''
+함수를 하나의 개체로 보고,
+매개변수로 전달하고, 
+반환값으로 사용함.
+'''</span>
+
+<span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Set argument"</span><span class="p">)</span>
+    <span class="n">arg</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'{arg} </span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s">"Assign variable &amp; send parameter"</span><span class="p">)</span>
+    <span class="n">squares</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>
+    
+    
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Set argument
+5 
+
+Assign variable &amp; send parameter
+25
+</code></pre></div></div>
+
+<h2 id="higher-order-function">Higher-Order Function</h2>
+
+<p><strong>Higher-Order function</strong>은 first-class function과 유사한 개념이다. <br />
+함수가 매개변수로 전달되거나, 또는 함수를 반환값으로 사용하는 함수를 higher-order function이라고 한다.  <br />
+둘 중 하나만 성립해도 higher-order function이다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># upper_case</span>
+<span class="s">'''
+이 예제에서는 함수가 매개변수나 반환값으로 사용되지 않았다.
+이 예제에 higher-order function을 적용해본다면?
+'''</span>
+
+<span class="n">LOWER_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="s">"min"</span><span class="p">,</span> <span class="s">"yong"</span><span class="p">,</span> <span class="s">"hun"</span><span class="p">]</span>
+<span class="n">UPPER_LIST</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">convert</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">LOWER_LIST</span><span class="p">:</span>
+        <span class="n">UPPER_LIST</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"===print result==="</span><span class="p">)</span>
+    <span class="n">convert</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">LOWER_LIST</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">UPPER_LIST</span><span class="p">)</span>
+    
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>===print result===
+['min', 'yong', 'hun']
+['MIN', 'YONG', 'HUN']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># brief_upper_case</span>
+<span class="s">''' '''</span>
+
+<span class="n">LOWER_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="s">"min"</span><span class="p">,</span> <span class="s">"yong"</span><span class="p">,</span> <span class="s">"hun"</span><span class="p">]</span>
+<span class="n">UPPER_LIST</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"===print result==="</span><span class="p">)</span>
+    <span class="n">UPPER_LIST</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert</span><span class="p">,</span> <span class="n">LOWER_LIST</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">LOWER_LIST</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">UPPER_LIST</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"===variable UPPER_LIST==="</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">UPPER_LIST</span><span class="p">)</span>
+    
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>===print result===
+['min', 'yong', 'hun']
+['MIN', 'YONG', 'HUN']
+
+===variable UPPER_LIST===
+&lt;map object at 0x000002AA778ACE10&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arg</span> <span class="o">=</span> <span class="s">"b"</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">upper</span>
+<span class="n">b_</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b
+&lt;built-in method upper of str object at 0x000002AA7354F960&gt;
+B
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">advanced</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">data</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">LOWER_LIST</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"===advanced form==="</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">advanced</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>===advanced form===
+['MIN', 'YONG', 'HUN']
+</code></pre></div></div>
+
+<h2 id="nested-function">Nested function</h2>
+
+<p><strong>중첩함수(Nested function)</strong>는 함수로 감싸인 함수를 뜻한다. 쉽게 말하면 함수 안에 정의된 함수이다. 외부함수를 ‘Outer function’, 내부함수를 ‘Inner function’이라고 표현한다.</p>
+
+<p>중첩함수는 단순히 하나의 함수안에 정의된 또 다른 하나의 함수뿐 아니라, 여러 개의 함수를 중첩한 형태로도 표현될 수 있다. 이때 각각의 내부함수들은 <strong>scope chain</strong>에 의해 자신을 감싸고 있는 외부함수의 메모리에 접근이 가능하다.</p>
+
+<p>외부함수의 메모리에 접근이 가능하다는 것은 외부함수가 가지고 있는 변수나 매개변수 등에 접근할 수 있고 사용할 수 있다는 뜻이다. 정확히는, 외부함수의 메모리를 복사해서 가지고 있다.  <br />
+앞서 설명한 <strong>네임스페이스의 LEGB 규칙</strong> 중에서 <strong>enclosed</strong>에 해당하는 내용이다.</p>
+
+<p>내부함수를 사용하면 외부함수의 자원을 이용할 수 있는 장점이 있다. 그래서 같은 매개변수를 사용하거나, 연관된 기능을 하는 함수들을 하나의 외부함수에 묶어서 사용하기도 한다. 이때 유의점은, 외부에서 내부함수로 접근할 수 없다는 점이다.</p>
+
+<p>즉, 외부에서 내부함수를 직접 호출할 수 없다는 것이다. 내부함수가 외부함수 안에 감싸여 정의되어 있기 때문에 파이썬은 외부함수 단에서 내부함수의 존재를 알지 못한다. <br />
+그래서 내부함수가 실행되기 위해, 먼저 외부함수를 호출하고 함수 내 로직에 따라 내부함수가 호출되어야한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># calculator_1</span>
+<span class="s">'''중첩함수 예제, 
+내부함수를 사용하여, 외부함수의 매개변수 사용'''</span>
+
+<span class="k">def</span> <span class="nf">calculator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>   <span class="c"># 외부함수</span>
+    
+    <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>   <span class="c"># 내부함수</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    
+    <span class="k">def</span> <span class="nf">sub</span><span class="p">():</span>   <span class="c"># 내부함수</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">-</span><span class="n">y</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">add</span><span class="p">(),</span> <span class="n">sub</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== print calculation ==="</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">calculator</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== print calculation ===
+(15, 5)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># calculator_2</span>
+<span class="s">'''
+중첩함수 예제,
+외부함수와 내부함수가 각각 매개변수를 받고,
+외부함수는 내부함수를 반환값으로 사용함.
+'''</span>
+
+<span class="k">def</span> <span class="nf">calculator</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    
+    <span class="k">return</span> <span class="n">add</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"=== print calculation ==="</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>   <span class="c"># 변수 f에 매개변수와 함께 외부함수를 할당.</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>   <span class="c">#변수 f에 매개변수를 주고 실행.</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== print calculation ===
+15
+20
+</code></pre></div></div>
+
+<p><strong>변수 f</strong>에 <strong>외부함수(calculator())를 할당</strong>할때 <strong>외부함수의 매개변수</strong> 10을 x로 할당함. <br />
+<strong>변수 f</strong>에는 <strong>외부함수의 반환값</strong>인 <strong>함수 add()</strong>가 할당됐다. <br />
+<strong>변수 f를 실행</strong>할때, <strong>매개변수로 전달한 값</strong>은 함수 add(), 즉 <strong>내부함수의 매개변수</strong> y로 전달 됨.</p>
+
+<p>중첩함수 중, 위 두번째 예제와 같은 것을 <strong>클로저(Closure)</strong>라 부른다.</p>
+</section>
+  
+  <!-- Social media shares -->
+  <footer>
+<div class="share-buttons">
+<ul class="share-buttons">
+	
+	<li>
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2019/03/25/pythonic_coding_chpt01_01.html&quote=Pythonic & Concepts (1)%20%7C%20DaMacho" target="_blank" title="Share on Facebook"> -->
+		<!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2019/03/25/pythonic_coding_chpt01_01.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"> -->
+		<a href="https://www.facebook.com/sharer/sharer.php?u=https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+	</li>
+	
+
+	
+	<li>
+		<!-- <a href="https://twitter.com/intent/tweet?source=http://localhost:4000/2019/03/25/pythonic_coding_chpt01_01.html&text=Pythonic & Concepts (1)%20%7C%20DaMacho:%20http://localhost:4000/2019/03/25/pythonic_coding_chpt01_01.html" target="_blank" title="Tweet"> -->
+		<a href="https://twitter.com/intent/tweet?source=https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html&text=Pythonic & Concepts (1)%20%7C%20DaMacho:%20https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html" target="_blank" title="Tweet">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+	<li>
+		<!-- <a href="http://www.reddit.com/submit?url=http://localhost:4000/2019/03/25/pythonic_coding_chpt01_01.html&title=Pythonic & Concepts (1)%20%7C%20DaMacho" target="_blank" title="Share on Reddit"> -->
+		<a href="http://www.reddit.com/submit?url=https://damacho.github.io/2019/03/25/pythonic_coding_chpt01_01.html&title=Pythonic & Concepts (1)%20%7C%20DaMacho" target="_blank" title="Share on Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+	</li>
+	
+
+	
+
+	
+
+	
+</ul>
+</div>
+</footer>
+
+   
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#Computer Science">
+      <p><i class="fa fa-tag fa-fw"></i> Computer Science</p>
+    </a>
+    
+    <a class="button" href="/tags#Python">
+      <p><i class="fa fa-tag fa-fw"></i> Python</p>
+    </a>
+    
+  </div>
+</footer>
+
+    
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous post</p>
+      <a href="/2018/12/20/BookStudy_PythonicCoding_chpt03.html">
+        Concurrency & Parallelism
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next post</p>
+      <a href="/2019/04/22/python_libraries_chpt05.html">
+        Python Library Recipe, Ch 05
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+
+
+<li>
+	<a href="mailto:po4865@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/DaMacho" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Movie App
-img: "assets/img/portfolio/ninja.png"
+img: "assets/img/portfolio/circus.png"
 date: 2018-12-28
 ---
 
